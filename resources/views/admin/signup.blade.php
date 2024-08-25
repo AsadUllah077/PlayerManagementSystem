@@ -76,7 +76,10 @@
             <div class="form-group">
                 <label for="nameSearch">Name Search</label>
                 <select class="form-control" id="nameSearch">
-                    <option>Select Name</option>
+                    <option>select player</option>
+                    @foreach ($players as $key => $player)
+                    <option>{{$player->name}}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group">

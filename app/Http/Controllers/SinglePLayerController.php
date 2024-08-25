@@ -93,6 +93,7 @@ class SinglePLayerController extends Controller
     }
 
     public function signUpView(){
-        return view('admin.signUp');
+        $players = SinglePLayer::all();
+        return view('admin.signUp', compact('players', 'players'));
     }
 }
