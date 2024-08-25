@@ -91,4 +91,8 @@ class SinglePLayerController extends Controller
         SinglePLayer::destroy($id);
         return redirect()->route('admin.singleplayer.list');
     }
+
+    public function signUpView(){
+        return view('admin.signUp');
+    }
 }
