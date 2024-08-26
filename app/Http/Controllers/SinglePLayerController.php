@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SinglePLayer;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class SinglePLayerController extends Controller
@@ -92,8 +93,40 @@ class SinglePLayerController extends Controller
         return redirect()->route('admin.singleplayer.list');
     }
 
-    public function signUpView(){
+    public function signUpView()
+    {
         $players = SinglePLayer::all();
         return view('admin.signUp', compact('players', 'players'));
+    }
+
+    public function signup(Request $request)
+    {
+        // Validate the request data
+        $validator = Validator::make($request->all(), [
+            'phoneSearch' => 'required',
+            'password' => 'nullable|min:6',
+        ]);
+
+        if ($validator->fails()) {
+            // If validation fails, redirect back with errors
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Check if the player exists in the database
+        $player = SinglePlayer::where('phone', $request->input('phoneSearch'))->first();
+
+        if ($player) {
+            // If player exists and password matches
+            if (empty($request->input('password')) || Hash::check($request->input('password'), $player->password)) {
+                // Sign up logic here (e.g., log in the player, redirect to a dashboard)
+                return redirect()->route('admin.singleplayer.list')->with('success', 'Player signed up successfully!');
+            } else {
+                // If password does not match, redirect back with an error
+                return redirect()->back()->withErrors(['password' => 'Password does not match.'])->withInput();
+            }
+        } else {
+            // If player does not exist, redirect back with an error
+            return redirect()->back()->withErrors(['phoneSearch' => 'Player not found.'])->withInput();
+        }
     }
 }

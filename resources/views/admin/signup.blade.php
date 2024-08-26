@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,8 +15,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh; /* Full viewport height */
-            margin: 0; /* Remove default body margin */
+            height: 100vh;
+            margin: 0;
         }
 
         .header {
@@ -31,8 +30,8 @@
             padding: 20px;
             border: 1px solid white;
             width: 100%;
-            max-width: 500px; /* Max width to ensure form does not stretch too much */
-            background-color: #333; /* Slightly different color to distinguish form */
+            max-width: 500px;
+            background-color: #333;
         }
 
         .form-group label {
@@ -63,35 +62,46 @@
             <h2>Sign Up Player</h2>
         </div>
 
-
-        <form method="POST">
+        <form method="POST" action="{{ route('admin.player.signup') }}">
             @csrf
             <!-- Display General Errors -->
-
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <div class="form-group">
                 <label for="phoneSearch">Phone # Search</label>
-                <input type="text" class="form-control" id="phoneSearch" placeholder="Enter phone number" />
+                <input type="text" class="form-control" id="phoneSearch" name="phoneSearch" placeholder="Enter phone number" />
             </div>
             <div class="form-group">
                 <label for="nameSearch">Name Search</label>
-                <select class="form-control" id="nameSearch">
+                <select class="form-control" id="nameSearch" name="nameSearch">
                     <option>select player</option>
                     @foreach ($players as $key => $player)
-                    <option>{{$player->name}}</option>
+                        <option>{{ $player->name }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="form-group">
                 <label for="playerInfo">Shows Players Info/Name</label>
-                <textarea class="form-control" id="playerInfo" rows="3"
-                    placeholder="This shows data from the database. Name, Rank, Total score, etc."></textarea>
+                <textarea class="form-control" id="playerInfo" name="playerInfo" rows="3" placeholder="This shows data from the database. Name, Rank, Total score, etc."></textarea>
             </div>
             <div class="form-group">
                 <label for="password">Password (optional)</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter password" />
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" />
             </div>
             <button type="submit" class="btn btn-custom">Sign Up</button>
+        </form>
+
+        <!-- Register Button -->
+        <form method="GET" action="{{ route('admin.singleplayer') }}">
+            <button type="submit" class="btn btn-custom mt-3">Register</button>
         </form>
     </div>
 
