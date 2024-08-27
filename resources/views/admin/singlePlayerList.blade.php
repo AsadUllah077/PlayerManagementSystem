@@ -63,10 +63,11 @@
 
     <!-- Responsive Container -->
     <div class="container-fluid">
-        <!-- Add Player Button -->
+        <!-- Buttons for Adding Player and Viewing Player Team List -->
         <div class="row mt-2">
             <div class="col text-right">
-                <a href="{{ route('admin.singleplayer') }}" class="btn btn-custom">Add Player</a>
+                <a href="{{ route('admin.singleplayer.index') }}" class="btn btn-custom">Add Player</a>
+                <a href="{{ route('admin.teams.index') }}" class="btn btn-custom">Player Team List</a> <!-- New button added -->
             </div>
         </div>
 

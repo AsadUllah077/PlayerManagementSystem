@@ -83,7 +83,7 @@ class TeamController extends Controller
         ]);
 
         // Attach new players to the team without removing existing ones
-        $team->players()->attach($request->input('players'));
+        $team->players()->syncWithoutDetaching($request->input('players'));
 
         return redirect()->route('admin.teams.index')->with('success', 'Players added to the team successfully!');
     }
@@ -95,4 +95,24 @@ class TeamController extends Controller
 
         return view('admin.teams.index1', compact('teams'));
     }
+    public function showPlayers($id)
+    {
+        $team = Team::findOrFail($id);
+        $players = $team->players; // Assuming there is a relationship defined
+
+        return view('admin.teams.players', compact('team', 'players'));
+    }
+    public function removePlayer($teamId, $playerId)
+{
+    // Find the team and player by their IDs
+    $team = Team::findOrFail($teamId);
+    $player = SinglePlayer::findOrFail($playerId);
+
+    // Remove the player from the team
+    $team->players()->detach($player->id);
+
+    // Redirect back to the team players page with a success message
+    return redirect()->route('admin.teams.showPlayers', $teamId)->with('success', 'Player removed from team successfully.');
+}
+
 }

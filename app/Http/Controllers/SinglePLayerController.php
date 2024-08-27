@@ -51,7 +51,7 @@ class SinglePLayerController extends Controller
             'phone' => $request->phone
         ]);
 
-        return redirect()->route('admin.singleplayer.list');
+        return redirect()->route('admin.singleplayer.signUp');
     }
 
     public function update(Request $request, $id)

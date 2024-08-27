@@ -100,7 +100,7 @@
         </form>
 
         <!-- Register Button -->
-        <form method="GET" action="{{ route('admin.singleplayer') }}">
+        <form method="GET" action="{{ route('admin.singleplayer.index') }}">
             <button type="submit" class="btn btn-custom mt-3">Register</button>
         </form>
     </div>

@@ -117,7 +117,7 @@
                 @enderror
             </div>
             <button type="submit" class="btn btn-custom btn-block">Register</button>
-            <a href="{{ route('admin.signUp') }}" class="btn btn-custom btn-block mt-3">Sign Up</a>
+            <a href="{{ route('admin.singleplayer.signUp') }}" class="btn btn-custom btn-block mt-3">Sign Up</a>
         </form>
     </div>
 
